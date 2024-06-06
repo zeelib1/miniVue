@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext", // or a specific ECMAScript version that supports modules
+    "module": "ES6", // or "ES6", "ES2020", etc., based on your Node.js version
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+  },
+  "include": ["*.ts", "../old/vnode.ts", "../old/testingNamespace.ts"],
+  "exclude": ["node_modules"]
+}
