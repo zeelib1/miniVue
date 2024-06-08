@@ -41,4 +41,4 @@ setTimeout(() => {
       console.log("---------------------------------");
     }, 2000); // 2 seconds after mounting
   }, 2000); // 2 seconds after creating
-}, 2000); // Initial 2 seconds delay
+}, 3000); // Initial 2 seconds delay
