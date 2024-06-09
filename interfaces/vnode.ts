@@ -12,11 +12,11 @@
  * @property {Element} [el] - Reference to the actual DOM element.
  */
 export interface VNode {
-  id: Number;
+  id: number;
   tag: string;
   properties: { [key: string]: any };
   children: Array<VNode | null>;
   text?: string;
-  customEventListener?: (event: string, callback: () => void) => void;
+  onClick?: (event: MouseEvent) => void; // Correct type for click events
   el?: Element; // Reference to the actual DOM element
 }

@@ -9,16 +9,19 @@ import { VNode } from "../interfaces/vnode";
  * @param {Object} properties - Properties for the element.
  * @param {Array<VNode|null>} children - Child elements or nodes.
  * @param {string} [text] - Optional text content for the element.
- * @param {(event: string, callback: () => void) => void} [customEventListener] - Optional event listener for the element.
+ * @param {(event: string, callback: () => void) => void} [onClick] - Optional event listener for the element.
  * @returns {VNode} The created virtual DOM element.
  */
+// src/utils/render.ts
+
 export function render(
-  id: number, // should be number, not Number
+  id: number,
   tag: string,
   properties: { [key: string]: any },
-  children: Array<VNode | null> = [], // Ensure that children is always defined as an array
+  children: Array<VNode | null> = [],
   text?: string,
-  customEventListener?: (event: string, callback: () => void) => void
+  onClick?: (event: MouseEvent) => void
 ): VNode {
-  return { id, tag, properties, children, text, customEventListener };
+  // VNode structure adjusted to treat onClick separately if you wish:
+  return { id, tag, properties, children, text, onClick };
 }

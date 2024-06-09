@@ -1,23 +1,27 @@
 import { MountParams } from "../interfaces/mountParams.js";
 
 export function mount({ vnode, container }: MountParams): void {
-  // Check if vnode is properly defined
-  console.log("Vnode:", vnode);
-
   if (!vnode || !vnode.tag) {
     console.error("Invalid vnode", vnode);
-    return; // Exit if vnode is not valid
+    return;
   }
 
   const el = document.createElement(vnode.tag);
 
-  // Apply properties
+  // Apply properties and event listeners
   for (const key in vnode.properties) {
-    el.setAttribute(key, vnode.properties[key]);
+    if (key.startsWith("on")) {
+      const eventName = key.slice(2).toLowerCase();
+      el.addEventListener(eventName, vnode.properties[key] as EventListener);
+    } else {
+      el.setAttribute(key, vnode.properties[key]);
+    }
   }
 
-  // // Apply custom event listeners if any
-  // vnode.customEventListener?.(el); // Assuming the listener takes the element as argument
+  // Specifically add click event listener if provided
+  if (vnode.onClick) {
+    el.addEventListener("click", vnode.onClick);
+  }
 
   // Append children or text
   if (vnode.text) {
@@ -29,12 +33,12 @@ export function mount({ vnode, container }: MountParams): void {
         if (typeof child === "string") {
           el.appendChild(document.createTextNode(child));
         } else {
-          mount({ vnode: child, container: el }); // Recursively mount non-null children
+          mount({ vnode: child, container: el });
         }
       }
     });
   }
 
   container.appendChild(el);
-  vnode.el = el; // Store a reference to the DOM node
+  vnode.el = el;
 }
